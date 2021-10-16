@@ -2,12 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum KeyColor
+{
+    Red,
+    Green, 
+    Gold
+}
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager gameManager;
     public bool gamePaused;
     bool endGame = false;
     bool win = false;
+
+    public int points = 0;
+    public int redKey = 0;
+    public int greenKey = 0;
+    public int goldKey = 0;
 
     [SerializeField] int timeToEnd;
 
@@ -78,6 +90,38 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.Log("You lose");
+        }
+    }
+
+    public void AddPoints(int point)
+    {
+        points += point;
+    }
+
+    public void AddTime(int addTime)
+    {
+        timeToEnd += addTime;
+    }
+
+    public void FreezeTime(int freeze)
+    {
+        CancelInvoke(nameof(Stopper));
+        InvokeRepeating(nameof(Stopper), freeze, 1);
+    }
+
+    public void AddKey(KeyColor color)
+    {
+        if(color == KeyColor.Red)
+        {
+            redKey++;
+        } 
+        else if(color == KeyColor.Green)
+        {
+            greenKey++;
+        }
+        else if(color == KeyColor.Gold)
+        {
+            goldKey++;
         }
     }
 }

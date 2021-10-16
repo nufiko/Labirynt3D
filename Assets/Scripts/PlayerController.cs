@@ -5,6 +5,9 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] float speed = 12f;
+    [SerializeField] float gravity = 9.81f;
+
+    Vector3 gravityVelocity;
     Vector3 velocity;
     CharacterController characterController;
 
@@ -38,6 +41,7 @@ public class PlayerController : MonoBehaviour
                     out hit, 0.4f, groundMask)
         )
         {
+            gravityVelocity = Vector3.zero;
             string terrainType = hit.collider.gameObject.tag;
 
             switch (terrainType)
@@ -52,6 +56,29 @@ public class PlayerController : MonoBehaviour
                     speed = 12;
                     break;
             }
+        }
+        else
+        {
+            DropPlayer();
+        }
+    }
+
+    public void DropPlayer()
+    {
+        gravityVelocity += Vector3.down * gravity * Time.deltaTime;
+        characterController.Move(gravityVelocity * Time.deltaTime);
+    }
+
+    /// <summary>
+    /// OnControllerColliderHit is called when the controller hits a
+    /// collider while performing a Move.
+    /// </summary>
+    /// <param name="hit">The ControllerColliderHit data associated with this collision.</param>
+    void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if(hit.gameObject.CompareTag("PickUp"))
+        {
+            hit.gameObject.GetComponent<PickUp>().Picked();
         }
     }
 }
