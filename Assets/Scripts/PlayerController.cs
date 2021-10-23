@@ -76,6 +76,7 @@ public class PlayerController : MonoBehaviour
     /// <param name="hit">The ControllerColliderHit data associated with this collision.</param>
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
+        Debug.LogWarning(hit.gameObject.tag);
         if(hit.gameObject.CompareTag("PickUp"))
         {
             hit.gameObject.GetComponent<PickUp>().Picked();
