@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         PauseCheck();
+        KeyCheck();
     }
 
     void Stopper()
@@ -122,6 +123,14 @@ public class GameManager : MonoBehaviour
         else if(color == KeyColor.Gold)
         {
             goldKey++;
+        }
+    }
+
+    public void KeyCheck()
+    {
+        if(Input.GetKeyDown(KeyCode.K))
+        {
+            Debug.Log($"You have {redKey} red keys, {greenKey} green Keys, {goldKey} gold Keys");
         }
     }
 }
