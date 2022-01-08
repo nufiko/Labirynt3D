@@ -97,6 +97,10 @@ public class GameManager : MonoBehaviour
     public void AddPoints(int point)
     {
         points += point;
+        if(points >= 10)
+        {
+            win = true;
+        }
     }
 
     public void AddTime(int addTime)
