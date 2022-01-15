@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PickUp : MonoBehaviour
 {
+    public AudioClip clip;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +20,7 @@ public class PickUp : MonoBehaviour
     public virtual void Picked()
     {
         Debug.Log("Podnioslem");
+        GameManager.gameManager.PlayClip(clip);
         Destroy(this.gameObject);
     }
 
